@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="qwe.SLDASM">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.00555840377495149 -2.19858108875884E-05 -0.0338534350070039"
+        rpy="0 0 0" />
+      <mass
+        value="0.419586541227121" />
+      <inertia
+        ixx="0.000312095321114988"
+        ixy="2.50695119161725E-08"
+        ixz="-6.90599475069062E-06"
+        iyy="0.000387742385307298"
+        iyz="4.11379473740516E-08"
+        izz="0.000639007842405834" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="big_qian_zuo">
+    <inertial>
+      <origin
+        xyz="0.00598678395976224 1.98653760603157E-06 -0.0461649985361685"
+        rpy="0 0 0" />
+      <mass
+        value="0.0494865350740823" />
+      <inertia
+        ixx="2.43542348789758E-05"
+        ixy="7.75557557316936E-10"
+        ixz="-2.53299401409177E-06"
+        iyy="2.49490121099917E-05"
+        iyz="3.23687605066671E-09"
+        izz="8.45453181596326E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/big_qian_zuo.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/big_qian_zuo.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="big_qian_zuo_joint"
+    type="revolute">
+    <origin
+      xyz="0.0762094291442094 0.0903 -0.0234011305178569"
+      rpy="-0.0308855290297457 -0.00706008448016331 -1.57057820480458" />
+    <parent
+      link="base_link" />
+    <child
+      link="big_qian_zuo" />
+    <axis
+      xyz="0.999999932595868 -0.000367162441960122 0" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="small_qian_zuo">
+    <inertial>
+      <origin
+        xyz="0.00767726535709001 2.66992835226687E-06 -0.0417242038743062"
+        rpy="0 0 0" />
+      <mass
+        value="0.0485888194618554" />
+      <inertia
+        ixx="5.53620086864661E-05"
+        ixy="-1.0875528646771E-12"
+        ixz="-9.32800169431362E-07"
+        iyy="4.64562167462947E-05"
+        iyz="-3.6740556524865E-12"
+        izz="1.03749534177239E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/small_qian_zuo.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.666666666666667 0.698039215686274 0.768627450980392 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/small_qian_zuo.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="small_qian_zuo_joint"
+    type="revolute">
+    <origin
+      xyz="-0.0232348253078274 0 -0.0614783303018983"
+      rpy="0.150944016190387 0.00706345307050266 0" />
+    <parent
+      link="big_qian_zuo" />
+    <child
+      link="small_qian_zuo" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="last_qian_zuo">
+    <inertial>
+      <origin
+        xyz="-0.0149999999999998 -5.82867087928207E-16 1.38777878078145E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.149109068746913" />
+      <inertia
+        ixx="0.000118053785956217"
+        ixy="1.22252890212675E-18"
+        ixz="-9.42524443498174E-19"
+        iyy="7.00002951751582E-05"
+        iyz="5.05043394797974E-21"
+        izz="7.00002951751582E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/last_qian_zuo.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/last_qian_zuo.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="last_qian_zuo_last"
+    type="continuous">
+    <origin
+      xyz="0.0559999999999992 0 -0.0800000000000008"
+      rpy="1.42873540434818 0 0" />
+    <parent
+      link="small_qian_zuo" />
+    <child
+      link="last_qian_zuo" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="big_qian_you">
+    <inertial>
+      <origin
+        xyz="-0.00631271616099918 -1.9860585745296E-06 -0.0461215595607491"
+        rpy="0 0 0" />
+      <mass
+        value="0.0494865356273923" />
+      <inertia
+        ixx="2.43892239576833E-05"
+        ixy="7.52722720596035E-10"
+        ixz="2.42043823170891E-06"
+        iyy="2.49490122157885E-05"
+        iyz="-3.24150248933336E-09"
+        izz="8.41954297295392E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/big_qian_you.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/big_qian_you.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="big_qian_you_joint"
+    type="revolute">
+    <origin
+      xyz="0.0762094291442093 -0.0902999999999995 -0.023401130517856"
+      rpy="-0.0225559175818486 0 -1.57079632679133" />
+    <parent
+      link="base_link" />
+    <child
+      link="big_qian_you" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="small_qian_you">
+    <inertial>
+      <origin
+        xyz="-0.00767726462148824 -2.65533010727903E-06 -0.0417238698915572"
+        rpy="0 0 0" />
+      <mass
+        value="0.0485888184351272" />
+      <inertia
+        ixx="5.53620073110566E-05"
+        ixy="-1.11009066465463E-12"
+        ixz="9.32799740938875E-07"
+        iyy="4.6456215295849E-05"
+        iyz="2.31993670034056E-12"
+        izz="1.0374953348037E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/small_qian_you.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.831372549019608 0.670588235294118 0.129411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/small_qian_you.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="small_qian_you_joint"
+    type="revolute">
+    <origin
+      xyz="0.0227999999999998 0 -0.0616409133919568"
+      rpy="0.227738111732279 0 0" />
+    <parent
+      link="big_qian_you" />
+    <child
+      link="small_qian_you" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="last_qian_you">
+    <inertial>
+      <origin
+        xyz="-0.015 -2.22044604925031E-16 4.30211422042248E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.149109068746913" />
+      <inertia
+        ixx="0.000118053785956217"
+        ixy="7.49965213635504E-19"
+        ixz="-1.36735576476358E-18"
+        iyy="7.00002951751581E-05"
+        iyz="3.81164826262279E-21"
+        izz="7.00002951751581E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/last_qian_you.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/last_qian_you.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="last_qian_you_joint"
+    type="continuous">
+    <origin
+      xyz="-0.0559999999999992 0 -0.0800000000000008"
+      rpy="1.79798018624836 0 3.14159265358977" />
+    <parent
+      link="small_qian_you" />
+    <child
+      link="last_qian_you" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="big_hou_you">
+    <inertial>
+      <origin
+        xyz="-0.00631271631098991 -1.98797039906162E-06 -0.0461215608870768"
+        rpy="0 0 0" />
+      <mass
+        value="0.0494865335752321" />
+      <inertia
+        ixx="2.43892234060449E-05"
+        ixy="7.52531112419532E-10"
+        ixz="2.42043806203214E-06"
+        iyy="2.49490119102213E-05"
+        iyz="-3.24455682280894E-09"
+        izz="8.41954265338489E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/big_hou_you.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/big_hou_you.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="big_hou_you_joint"
+    type="revolute">
+    <origin
+      xyz="-0.0751582217541418 -0.0902999999999995 -0.0265312205103236"
+      rpy="0.0149893111120794 0 -1.5707963267949" />
+    <parent
+      link="base_link" />
+    <child
+      link="big_hou_you" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="small_hou_you">
+    <inertial>
+      <origin
+        xyz="-0.00759256988193033 1.61676053815618E-06 -0.0413971078381016"
+        rpy="0 0 0" />
+      <mass
+        value="0.0477234162237091" />
+      <inertia
+        ixx="5.53092111248223E-05"
+        ixy="-1.08678276568245E-12"
+        ixz="9.32925992360023E-07"
+        iyy="4.64320842914699E-05"
+        iyz="2.01516401601926E-12"
+        izz="1.0317434425566E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/small_hou_you.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/small_hou_you.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="small_hou_you_joint"
+    type="continuous">
+    <origin
+      xyz="0.0227999999999996 -5.65848566776578E-05 -0.061640913391956"
+      rpy="0.335987949934926 0 0" />
+    <parent
+      link="big_hou_you" />
+    <child
+      link="small_hou_you" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="last_hou_you">
+    <inertial>
+      <origin
+        xyz="-0.015 -1.66533453693773E-16 4.30211422042248E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.149109068746913" />
+      <inertia
+        ixx="0.000118053785956217"
+        ixy="5.57648275291524E-19"
+        ixz="-1.39308216264826E-18"
+        iyy="7.00002951751582E-05"
+        iyz="1.66441974135308E-20"
+        izz="7.00002951751582E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/last_hou_you.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/last_hou_you.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="last_hou_you_joint"
+    type="continuous">
+    <origin
+      xyz="-0.0559999999999994 0 -0.0800000000000007"
+      rpy="1.94377525314493 0 3.14159265358977" />
+    <parent
+      link="small_hou_you" />
+    <child
+      link="last_hou_you" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="big_hou_zuo">
+    <inertial>
+      <origin
+        xyz="0.00631271561445132 1.98128177643364E-06 -0.0461215566734371"
+        rpy="0 0 0" />
+      <mass
+        value="0.0494865426873977" />
+      <inertia
+        ixx="2.43892264532237E-05"
+        ixy="7.53191921504714E-10"
+        ixz="-2.42043846524896E-06"
+        iyy="2.49490143980449E-05"
+        iyz="3.23355865159583E-09"
+        izz="8.41954352575737E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/big_hou_zuo.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/big_hou_zuo.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="big_hou_zuo_joint"
+    type="revolute">
+    <origin
+      xyz="-0.0751570307579049 0.0903 -0.0265877928315861"
+      rpy="0.0764813194979033 0 -1.57079632679489" />
+    <parent
+      link="base_link" />
+    <child
+      link="big_hou_zuo" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="small_hou_zuo">
+    <inertial>
+      <origin
+        xyz="0.00767726538820115 2.67927427767545E-06 -0.0417241072124587"
+        rpy="0 0 0" />
+      <mass
+        value="0.0485888195107094" />
+      <inertia
+        ixx="5.53620087490208E-05"
+        ixy="-1.0930280542396E-12"
+        ixz="-9.32800189449413E-07"
+        iyy="4.64562168018682E-05"
+        iyz="-3.68190150764586E-12"
+        izz="1.03749534322517E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/small_hou_zuo.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.831372549019608 0.670588235294118 0.129411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/small_hou_zuo.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="small_hou_zuo_joint"
+    type="revolute">
+    <origin
+      xyz="-0.0228 0 -0.0616409133919558"
+      rpy="0.041766101362966 0 0" />
+    <parent
+      link="big_hou_zuo" />
+    <child
+      link="small_hou_zuo" />
+    <axis
+      xyz="1 0 0" />
+    <limit
+      lower="-3"
+      upper="3"
+      effort="1"
+      velocity="1" />
+  </joint>
+  <link
+    name="last_hou_zuo">
+    <inertial>
+      <origin
+        xyz="-0.015 -3.60822483003176E-16 3.05311331771918E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.149109068746913" />
+      <inertia
+        ixx="0.000118053785956217"
+        ixy="1.1899381830226E-18"
+        ixz="-9.38985349306239E-19"
+        iyy="7.00002951751582E-05"
+        iyz="1.79994501289336E-21"
+        izz="7.00002951751582E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/last_hou_zuo.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://qwe.SLDASM/meshes/last_hou_zuo.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="last_hou_zuo_joint"
+    type="continuous">
+    <origin
+      xyz="0.0559999999999993 0 -0.0800000000000008"
+      rpy="1.430547240631 0 0" />
+    <parent
+      link="small_hou_zuo" />
+    <child
+      link="last_hou_zuo" />
+    <axis
+      xyz="-1 0 0" />
+    <limit
+      effort="1"
+      velocity="1" />
+  </joint>
+</robot>

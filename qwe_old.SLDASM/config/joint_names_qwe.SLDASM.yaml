@@ -1,0 +1,1 @@
+controller_joint_names: ['', 'big_qian_zuo_joint', 'small_qian_zuo_joint', 'last_qian_zuo_last', 'big_qian_you_joint', 'small_qian_you_joint', 'last_qian_you_joint', 'big_hou_you_joint', 'small_hou_you_joint', 'last_hou_you_joint', 'big_hou_zuo_joint', 'small_hou_zuo_joint', 'last_hou_zuo_joint', ]

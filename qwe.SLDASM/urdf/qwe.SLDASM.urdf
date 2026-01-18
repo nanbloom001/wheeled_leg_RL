@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="qwe_dog">
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.03396 0.00484 2.198E-05" rpy="0 0 0" />
+      <mass value="0.9" />
+      <inertia ixx="0.001371" ixy="0" ixz="0" iyy="0.000667" iyz="0" izz="0.000830" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://qwe.SLDASM/meshes/base_link.STL" /></geometry>
+      <material name=""><color rgba="0.79 0.81 0.93 1" /></material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry><mesh filename="package://qwe.SLDASM/meshes/base_link.STL" /></geometry>
+    </collision>
+  </link>
+
+  <!-- ==================== FRONT LEFT ==================== -->
+  <link name="thigh_front_left">
+    <inertial><origin xyz="-0.006 -1.9E-06 -0.046" rpy="0 0 0" /><mass value="0.085" /><inertia ixx="4.12E-05" ixy="0" ixz="4.12E-06" iyy="4.12E-05" iyz="0" izz="1.44E-05" /></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/big_qian_zuo.STL" /></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/big_qian_zuo.STL" /></geometry></collision>
+  </link>
+  <joint name="thigh_front_left_joint" type="revolute">
+    <origin xyz="0.0762 0.0903 -0.0234" rpy="0 0 -1.5708" />
+    <parent link="base_link" /><child link="thigh_front_left" /><axis xyz="-1 0 0" />
+    <limit lower="-0.6" upper="0.6" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+  </joint>
+
+  <link name="shank_front_left">
+    <inertial><origin xyz="-0.007 -0.041 2.4E-06" rpy="0 0 0" /><mass value="0.12" /><inertia ixx="0.000136" ixy="0" ixz="0" iyy="2.47E-05" iyz="0" izz="0.000114" /></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/small_qian_zuo.STL" /></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/small_qian_zuo.STL" /></geometry></collision>
+  </link>
+  <joint name="shank_front_left_joint" type="revolute">
+    <origin xyz="-0.023 0 -0.0615" rpy="0 0 0" />
+    <parent link="thigh_front_left" /><child link="shank_front_left" /><axis xyz="-1 0 0" />
+    <limit lower="-1.396" upper="1.396" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+  </joint>
+
+  <link name="wheel_front_left">
+    <inertial><origin xyz="-0.015 0 0" rpy="0 0 0" /><mass value="0.14911" /><inertia ixx="0.000118" ixy="0" ixz="0" iyy="7E-05" iyz="0" izz="7E-05" /></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/last_qian_zuo.STL" /></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/last_qian_zuo.STL" /></geometry></collision>
+  </link>
+  <joint name="wheel_front_left_joint" type="continuous">
+    <origin xyz="0.056 0 -0.08" rpy="1.42873540434818 0 0" />
+    <parent link="shank_front_left" /><child link="wheel_front_left" /><axis xyz="-1 0 0" />
+    <limit effort="1.27" velocity="6.3" /><dynamics friction="5.0" damping="0.5" />
+  </joint>
+
+  <!-- ==================== FRONT RIGHT ==================== -->
+  <link name="thigh_front_right">
+    <inertial><origin xyz="-0.006 -1.9E-06 -0.046" rpy="0 0 0" /><mass value="0.085" /><inertia ixx="4.12E-05" ixy="0" ixz="4.12E-06" iyy="4.12E-05" iyz="0" izz="1.44E-05" /></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/big_qian_you.STL" /></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/big_qian_you.STL" /></geometry></collision>
+  </link>
+  <joint name="thigh_front_right_joint" type="revolute">
+    <origin xyz="0.0762 -0.0903 -0.0234" rpy="0 0 -1.5708" />
+    <parent link="base_link" /><child link="thigh_front_right" /><axis xyz="-1 0 0" />
+    <limit lower="-0.6" upper="0.6" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+  </joint>
+
+  <link name="shank_front_right">
+    <inertial><origin xyz="-0.007 -2.2E-06 -0.041" rpy="0 0 0" /><mass value="0.12" /><inertia ixx="0.000136" ixy="0" ixz="2.3E-06" iyy="0.000114" iyz="0" izz="2.47E-05" /></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/small_qian_you.STL" /></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/small_qian_you.STL" /></geometry></collision>
+  </link>
+  <joint name="shank_front_right_joint" type="revolute">
+    <origin xyz="0.023 0 -0.0615" rpy="0 0 0" />
+    <parent link="thigh_front_right" /><child link="shank_front_right" /><axis xyz="-1 0 0" />
+    <limit lower="-1.396" upper="1.396" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+  </joint>
+
+  <link name="wheel_front_right">
+    <inertial><origin xyz="-0.015 0 0" rpy="0 0 0" /><mass value="0.1491" /><inertia ixx="0.000118" ixy="0" ixz="0" iyy="7E-05" iyz="0" izz="7E-05" /></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/last_qian_you.STL" /></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/last_qian_you.STL" /></geometry></collision>
+  </link>
+  <joint name="wheel_front_right_joint" type="continuous">
+    <origin xyz="-0.056 0 -0.08" rpy="1.79798018624836 0 3.14159265358977" />
+    <parent link="shank_front_right" /><child link="wheel_front_right" /><axis xyz="-1 0 0" />
+    <limit effort="1.27" velocity="6.3" /><dynamics friction="5.0" damping="0.5" />
+  </joint>
+
+  <!-- ==================== REAR LEFT ==================== -->
+  <link name="thigh_rear_left">
+    <inertial><origin xyz="-0.006 -1.9E-06 -0.046" rpy="0 0 0" /><mass value="0.085" /><inertia ixx="4.12E-05" ixy="0" ixz="4.12E-06" iyy="4.12E-05" iyz="0" izz="1.44E-05" /></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/big_hou_zuo.STL" /></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/big_hou_zuo.STL" /></geometry></collision>
+  </link>
+  <joint name="thigh_rear_left_joint" type="revolute">
+    <origin xyz="-0.0762 0.0903 -0.0234" rpy="0 0 -1.5708" />
+    <parent link="base_link" /><child link="thigh_rear_left" /><axis xyz="-1 0 0" />
+    <limit lower="-0.6" upper="0.6" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+  </joint>
+
+  <link name="shank_rear_left">
+    <inertial><origin xyz="-0.007 -2.3E-06 -0.041" rpy="0 0 0" /><mass value="0.12" /><inertia ixx="0.000136" ixy="0" ixz="2.3E-06" iyy="0.000114" iyz="0" izz="2.47E-05" /></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/small_hou_zuo.STL" /></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/small_hou_zuo.STL" /></geometry></collision>
+  </link>
+  <joint name="shank_rear_left_joint" type="revolute">
+    <origin xyz="-0.023 0 -0.0615" rpy="0 0 0" />
+    <parent link="thigh_rear_left" /><child link="shank_rear_left" /><axis xyz="-1 0 0" />
+    <limit lower="-1.396" upper="1.396" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+  </joint>
+
+  <link name="wheel_rear_left">
+    <inertial><origin xyz="-0.015 0 0" rpy="0 0 0" /><mass value="0.1491" /><inertia ixx="0.000118" ixy="0" ixz="0" iyy="7E-05" iyz="0" izz="7E-05" /></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/last_hou_zuo.STL" /></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/last_hou_zuo.STL" /></geometry></collision>
+  </link>
+  <joint name="wheel_rear_left_joint" type="continuous">
+    <origin xyz="0.056 0 -0.08" rpy="1.430547240631 0 0" />
+    <parent link="shank_rear_left" /><child link="wheel_rear_left" /><axis xyz="-1 0 0" />
+    <limit effort="1.27" velocity="6.3" /><dynamics friction="5.0" damping="0.5" />
+  </joint>
+
+  <!-- ==================== REAR RIGHT ==================== -->
+  <link name="thigh_rear_right">
+    <inertial><origin xyz="-0.006 -1.9E-06 -0.046" rpy="0 0 0" /><mass value="0.085" /><inertia ixx="4.12E-05" ixy="0" ixz="4.12E-06" iyy="4.12E-05" iyz="0" izz="1.44E-05" /></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/big_hou_you.STL" /></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/big_hou_you.STL" /></geometry></collision>
+  </link>
+  <joint name="thigh_rear_right_joint" type="revolute">
+    <origin xyz="-0.0762 -0.0903 -0.0234" rpy="0 0 -1.5708" />
+    <parent link="base_link" /><child link="thigh_rear_right" /><axis xyz="-1 0 0" />
+    <limit lower="-0.6" upper="0.6" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+  </joint>
+
+  <link name="shank_rear_right">
+    <inertial><origin xyz="-0.007 -0.041 -9.7E-07" rpy="0 0 0" /><mass value="0.12" /><inertia ixx="0.000139" ixy="2.3E-06" ixz="0" iyy="2.51E-05" iyz="0" izz="0.000116" /></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/small_hou_you.STL" /></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/small_hou_you.STL" /></geometry></collision>
+  </link>
+  <joint name="shank_rear_right_joint" type="revolute">
+    <origin xyz="0.023 0 -0.0615" rpy="0 0 0" />
+    <parent link="thigh_rear_right" /><child link="shank_rear_right" /><axis xyz="-1 0 0" />
+    <limit lower="-1.396" upper="1.396" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+  </joint>
+
+  <link name="wheel_rear_right">
+    <inertial><origin xyz="-0.015 0 0" rpy="0 0 0" /><mass value="0.1491" /><inertia ixx="0.000118" ixy="0" ixz="0" iyy="7E-05" iyz="0" izz="7E-05" /></inertial>
+    <visual><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/last_hou_you.STL" /></geometry></visual>
+    <collision><origin xyz="0 0 0" rpy="0 0 0" /><geometry><mesh filename="package://qwe.SLDASM/meshes/last_hou_you.STL" /></geometry></collision>
+  </link>
+  <joint name="wheel_rear_right_joint" type="continuous">
+    <origin xyz="-0.056 0 -0.08" rpy="1.94377525314493 0 3.14159265358977" />
+    <parent link="shank_rear_right" /><child link="wheel_rear_right" /><axis xyz="-1 0 0" />
+    <limit effort="1.27" velocity="6.3" /><dynamics friction="5.0" damping="0.5" />
+  </joint>
+</robot>
