@@ -7,6 +7,11 @@ import gymnasium as gym
 
 from .rough_env_cfg import QweDogRoughEnvCfg, QweDogRoughEnvCfg_PLAY
 from .flat_env_cfg import QweDogFlatEnvCfg, QweDogFlatEnvCfg_PLAY
+from .flat_env_cfg_debug import QweDogFlatEnvCfg_DEBUG
+# 引入新的直线行走配置
+from .flat_env_linear_cfg import QweDogFlatLinearEnvCfg, QweDogFlatLinearEnvCfg_PLAY
+# 引入新的快速直线行走配置
+from .flat_env_linear_fast_cfg import QweDogFlatLinearFastEnvCfg, QweDogFlatLinearFastEnvCfg_PLAY
 
 ##
 # Register Gym environments.
@@ -35,7 +40,7 @@ gym.register(
     },
 )
 
-# Flat Terrain
+# Flat Terrain (Full)
 gym.register(
     id="Isaac-Velocity-Flat-QweDog-v0",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
@@ -54,6 +59,64 @@ gym.register(
     kwargs={
         "env_cfg_entry_point": QweDogFlatEnvCfg_PLAY,
         "rsl_rl_cfg_entry_point": f"{__name__}.agents.rsl_rl_ppo_cfg:UnitreeA1RoughPPORunnerCfg",
+        "skrl_cfg_entry_point": f"{__name__}:skrl_flat_ppo_cfg.yaml",
+    },
+)
+
+# Flat Terrain (Linear / Straight Line Only)
+gym.register(
+    id="Isaac-Velocity-Flat-QweDog-Linear-v0",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": QweDogFlatLinearEnvCfg,
+        "rsl_rl_cfg_entry_point": f"{__name__}.agents.rsl_rl_ppo_cfg:UnitreeA1RoughPPORunnerCfg",
+        "skrl_cfg_entry_point": f"{__name__}:skrl_flat_ppo_cfg.yaml",
+    },
+)
+
+gym.register(
+    id="Isaac-Velocity-Flat-QweDog-Linear-Play-v0",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": QweDogFlatLinearEnvCfg_PLAY,
+        "rsl_rl_cfg_entry_point": f"{__name__}.agents.rsl_rl_ppo_cfg:UnitreeA1RoughPPORunnerCfg",
+        "skrl_cfg_entry_point": f"{__name__}:skrl_flat_ppo_cfg.yaml",
+    },
+)
+
+# Flat Terrain (Linear Fast / Phase 2)
+gym.register(
+    id="Isaac-Velocity-Flat-QweDog-Linear-Fast-v0",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": QweDogFlatLinearFastEnvCfg,
+        "rsl_rl_cfg_entry_point": f"{__name__}.agents.rsl_rl_ppo_cfg:UnitreeA1RoughPPORunnerCfg",
+        "skrl_cfg_entry_point": f"{__name__}:skrl_flat_ppo_cfg.yaml",
+    },
+)
+
+gym.register(
+    id="Isaac-Velocity-Flat-QweDog-Linear-Fast-Play-v0",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": QweDogFlatLinearFastEnvCfg_PLAY,
+        "rsl_rl_cfg_entry_point": f"{__name__}.agents.rsl_rl_ppo_cfg:UnitreeA1RoughPPORunnerCfg",
+        "skrl_cfg_entry_point": f"{__name__}:skrl_flat_ppo_cfg.yaml",
+    },
+)
+
+# Flat Terrain (DEBUG)
+gym.register(
+    id="Isaac-Velocity-Flat-QweDog-Debug-v0",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
+    disable_env_checker=True,
+    kwargs={
+        "env_cfg_entry_point": QweDogFlatEnvCfg_DEBUG,
+        "rsl_rl_cfg_entry_point": f"{__name__}.agents.rsl_rl_ppo_cfg_debug:UnitreeA1RoughPPORunnerCfg_DEBUG",
         "skrl_cfg_entry_point": f"{__name__}:skrl_flat_ppo_cfg.yaml",
     },
 )

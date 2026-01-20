@@ -5,61 +5,52 @@
 
 import math
 from isaaclab.utils import configclass
-from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
-from isaaclab.managers import RewardTermCfg as RewTerm
 from isaaclab.managers import SceneEntityCfg
 
 from isaaclab_tasks.manager_based.locomotion.velocity.velocity_env_cfg import LocomotionVelocityRoughEnvCfg
 import isaaclab_tasks.manager_based.locomotion.velocity.mdp as mdp
 
-##
-# Pre-defined configs
-##
 from isaaclab_assets.robots.qwe_dog import QWE_DOG_CFG
 
 
 @configclass
-class QweDogFlatEnvCfg(LocomotionVelocityRoughEnvCfg):
+class QweDogFlatEnvCfg_DEBUG(LocomotionVelocityRoughEnvCfg):
     def __post_init__(self):
         # post init of parent
         super().__post_init__()
 
-        # --- PhysX GPU 内存优化 (High Mem) ---
-        self.sim.physx.gpu_max_rigid_contact_count = 2**24 # 增加一倍
-        self.sim.physx.gpu_max_rigid_patch_count = 2**24
-        self.sim.physx.gpu_found_lost_pairs_capacity = 2**24
-        self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 2**24
-        self.sim.physx.gpu_total_aggregate_pairs_capacity = 2**24
-        self.sim.physx.gpu_max_soft_body_contacts = 2**24
-        self.sim.physx.gpu_max_particle_contacts = 2**24
-        self.sim.physx.gpu_heap_capacity = 2**27 # 128MB
-        self.sim.physx.gpu_temp_buffer_capacity = 2**27
-        self.sim.physx.gpu_resource_part_data_capacity = 2**21
-        self.sim.physx.gpu_collision_stack_size = 2**29 # 512MB
+        # --- PhysX GPU 内存优化 ---
+        self.sim.physx.gpu_max_rigid_contact_count = 2**23
+        self.sim.physx.gpu_max_rigid_patch_count = 2**23
+        self.sim.physx.gpu_found_lost_pairs_capacity = 2**23
+        self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 2**23
+        self.sim.physx.gpu_total_aggregate_pairs_capacity = 2**23
+        self.sim.physx.gpu_max_soft_body_contacts = 2**23
+        self.sim.physx.gpu_max_particle_contacts = 2**23
+        self.sim.physx.gpu_heap_capacity = 2**26 
+        self.sim.physx.gpu_temp_buffer_capacity = 2**26
+        self.sim.physx.gpu_resource_part_data_capacity = 2**20
+        self.sim.physx.gpu_collision_stack_size = 2**28
 
-        # --- Sim-to-Real 优化: 20Hz 控制频率 ---
+        # --- DEBUG MODE: 默认频率 ---
         self.decimation = 10 
         self.sim.render_interval = self.decimation
 
         # 1. 替换机器人
-        # --- 压榨显存：增加环境数至 8192 ---
-        self.scene.num_envs = 8192 
+        self.scene.num_envs = 4096 
         self.scene.robot = QWE_DOG_CFG.replace(prim_path="{ENV_REGEX_NS}/Robot")
-        self.scene.height_scanner = None 
+        self.scene.height_scanner = None
 
         # --- 观测空间修正 ---
         self.observations.policy.height_scan = None
-        # Sim-to-Real: 观测噪声
-        self.observations.policy.joint_pos.noise = Unoise(n_min=-0.05, n_max=0.05)
-        self.observations.policy.joint_vel.noise = Unoise(n_min=-0.5, n_max=0.5)
-        self.observations.policy.base_lin_vel.noise = Unoise(n_min=-0.1, n_max=0.1)
-        self.observations.policy.base_ang_vel.noise = Unoise(n_min=-0.2, n_max=0.2)
+        # NO NOISE
 
         # 2. 地形
         self.scene.terrain.terrain_type = "plane"
         self.scene.terrain.terrain_generator = None 
         self.scene.terrain.max_init_terrain_level = None
         self.scene.terrain.collision_group = -1
+        # 默认摩擦力
         self.scene.terrain.physics_material.static_friction = 1.0
         self.scene.terrain.physics_material.dynamic_friction = 1.0
         
@@ -72,8 +63,7 @@ class QweDogFlatEnvCfg(LocomotionVelocityRoughEnvCfg):
             scale=0.25, 
             use_default_offset=True
         )
-        # Sim-to-Real: 动作噪声 (模拟死区)
-        self.actions.joint_pos.noise = Unoise(n_min=-0.02, n_max=0.02)
+        # NO NOISE
 
         # --- 4. 指令空间 ---
         self.commands.base_velocity.ranges.lin_vel_x = (-0.3, 0.3) 
@@ -81,7 +71,7 @@ class QweDogFlatEnvCfg(LocomotionVelocityRoughEnvCfg):
         self.commands.base_velocity.ranges.ang_vel_z = (-0.5, 0.5) 
         self.commands.base_velocity.ranges.heading = (-math.pi, math.pi) 
 
-        # 5. 事件 (随机化)
+        # 5. 事件
         self.events.push_robot = None 
         self.events.add_base_mass.params["mass_distribution_params"] = (-0.2, 0.2)
         self.events.add_base_mass.params["asset_cfg"].body_names = "base_link"
@@ -99,39 +89,17 @@ class QweDogFlatEnvCfg(LocomotionVelocityRoughEnvCfg):
             },
         }
         self.events.base_com = None
-        
-        # Sim-to-Real: 摩擦随机化
-        self.events.physics_material.params["static_friction_range"] = (0.5, 1.25)
-        self.events.physics_material.params["dynamic_friction_range"] = (0.5, 1.25)
+        # NO FRICTION RANDOMIZATION
 
         # 6. 奖励函数
         self.rewards.feet_air_time.params["sensor_cfg"].body_names = "wheel_.*"
         self.rewards.feet_air_time.weight = 0.5 
-        
-        # Sim-to-Real: 膝盖/腹部触地惩罚
-        self.rewards.undesired_contacts = RewTerm(
-            func=mdp.undesired_contacts,
-            weight=-2.0, 
-            params={
-                "sensor_cfg": SceneEntityCfg("contact_forces", body_names=["base_link", "shank_.*"]), 
-                "threshold": 1.0 
-            },
-        )
+        # NO UNDESIRED CONTACTS (KNEE)
+        self.rewards.undesired_contacts = None
         
         self.rewards.dof_torques_l2.weight = -0.00001 
         self.rewards.ang_vel_xy_l2.weight = -0.05
         self.rewards.flat_orientation_l2.weight = -2.0 
 
         # 7. 终止条件
-        self.terminations.base_contact.params["sensor_cfg"].body_names = ["base_link", "shank_.*"]
-
-
-@configclass
-class QweDogFlatEnvCfg_PLAY(QweDogFlatEnvCfg):
-    def __post_init__(self):
-        super().__post_init__()
-        self.scene.num_envs = 50
-        self.scene.env_spacing = 2.5
-        self.observations.policy.enable_corruption = False
-        self.events.base_external_force_torque = None
-        self.events.push_robot = None
+        self.terminations.base_contact.params["sensor_cfg"].body_names = "base_link" # Only base

@@ -1,22 +1,37 @@
-# Copyright (c) 2022-2026, The Isaac Lab Project Developers (https://github.com/isaac-sim/IsaacLab/blob/main/CONTRIBUTORS.md).
+# Copyright (c) 2022-2026, The Isaac Lab Project Developers.
 # All rights reserved.
 #
 # SPDX-License-Identifier: BSD-3-Clause
 
-"""Script to train RL agent with RSL-RL."""
-
-"""Launch Isaac Sim Simulator first."""
+"""Script to train RL agent with RSL-RL (with DDP Livestream fix)."""
 
 import argparse
 import sys
+import os # 关键修复：导入 os
+
+# 将上级目录添加到 sys.path 以便导入 cli_args
+# 假设脚本位于 scripts/ 目录下，我们需要找到 scripts/reinforcement_learning/rsl_rl/cli_args.py
+# 但 cli_args 不是一个包，直接导入比较麻烦。
+# 既然我们已经是在 Isaac Lab 环境下，我们可以直接把 train.py 的内容复制过来并修改。
 
 from isaaclab.app import AppLauncher
 
-# local imports
-import cli_args  # isort: skip
+# 为了能导入同级目录的 cli_args，我们需要把 scripts/reinforcement_learning/rsl_rl 加到 path
+# 或者直接在这里定义 cli_args 的逻辑（不推荐，重复代码）
+# 最好的办法是假设用户是在项目根目录运行此脚本，并且 PYTHONPATH 包含 scripts/reinforcement_learning/rsl_rl
+sys.path.append(os.path.join(os.path.dirname(__file__), "reinforcement_learning", "rsl_rl"))
+
+try:
+    import cli_args
+except ImportError:
+    # Fallback: try to find cli_args in current directory or relative path
+    # 如果脚本放在 scripts/ 下，cli_args 在 scripts/reinforcement_learning/rsl_rl/
+    # 我们上面已经append了path，应该能找到。
+    # 如果还是不行，可能需要用户自己确保 path 正确。
+    pass
 
 # add argparse arguments
-parser = argparse.ArgumentParser(description="Train an RL agent with RSL-RL.")
+parser = argparse.ArgumentParser(description="Train an RL agent with RSL-RL (DDP Livestream).")
 parser.add_argument("--video", action="store_true", default=False, help="Record videos during training.")
 parser.add_argument("--video_length", type=int, default=200, help="Length of the recorded video (in steps).")
 parser.add_argument("--video_interval", type=int, default=2000, help="Interval between video recordings (in steps).")
@@ -34,8 +49,24 @@ parser.add_argument("--export_io_descriptors", action="store_true", default=Fals
 parser.add_argument(
     "--ray-proc-id", "-rid", type=int, default=None, help="Automatically configured by Ray integration, otherwise None."
 )
+
 # append RSL-RL cli arguments
-cli_args.add_rsl_rl_args(parser)
+# 如果导入失败，这里会报错。我们假设脚本放对了位置。
+if 'cli_args' in sys.modules:
+    cli_args.add_rsl_rl_args(parser)
+else:
+    # 尝试动态加载
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("cli_args", os.path.join(os.path.dirname(__file__), "reinforcement_learning/rsl_rl/cli_args.py"))
+    if spec:
+        cli_args = importlib.util.module_from_spec(spec)
+        sys.modules["cli_args"] = cli_args
+        spec.loader.exec_module(cli_args)
+        cli_args.add_rsl_rl_args(parser)
+    else:
+        print("Error: Could not find cli_args.py")
+        sys.exit(1)
+
 # append AppLauncher cli args
 AppLauncher.add_app_launcher_args(parser)
 args_cli, hydra_args = parser.parse_known_args()
@@ -44,6 +75,13 @@ args_cli, hydra_args = parser.parse_known_args()
 if args_cli.video:
     args_cli.enable_cameras = True
 
+# --- DDP Livestream Fix (Correctly Placed) ---
+if args_cli.distributed:
+    # check local rank from torchrun/env
+    local_rank = int(os.getenv("LOCAL_RANK", "0"))
+    if local_rank > 0:
+        args_cli.livestream = 0
+# ---------------------------------------------
 
 # clear out sys.argv for Hydra
 sys.argv = [sys.argv[0]] + hydra_args
@@ -77,7 +115,6 @@ if version.parse(installed_version) < version.parse(RSL_RL_VERSION):
 """Rest everything follows."""
 
 import logging
-import os
 import time
 from datetime import datetime
 
@@ -104,8 +141,6 @@ from isaaclab_tasks.utils.hydra import hydra_task_config
 # import logger
 logger = logging.getLogger(__name__)
 
-# PLACEHOLDER: Extension template (do not remove this comment)
-
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
 torch.backends.cudnn.deterministic = False
@@ -123,10 +158,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     )
 
     # set the environment seed
-    # note: certain randomizations occur in the environment initialization so we set the seed here
     env_cfg.seed = agent_cfg.seed
     env_cfg.sim.device = args_cli.device if args_cli.device is not None else env_cfg.sim.device
-    # check for invalid combination of CPU device with distributed training
     if args_cli.distributed and args_cli.device is not None and "cpu" in args_cli.device:
         raise ValueError(
             "Distributed training is not supported when using CPU device. "
@@ -147,10 +180,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     log_root_path = os.path.join("logs", "rsl_rl", agent_cfg.experiment_name)
     log_root_path = os.path.abspath(log_root_path)
     print(f"[INFO] Logging experiment in directory: {log_root_path}")
-    # specify directory for logging runs: {time-stamp}_{run_name}
+    
     log_dir = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    # The Ray Tune workflow extracts experiment name using the logging line below, hence, do not
-    # change it (see PR #2346, comment-2819298849)
     print(f"Exact experiment name requested from command line: {log_dir}")
     if agent_cfg.run_name:
         log_dir += f"_{agent_cfg.run_name}"
@@ -164,21 +195,17 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
             "IO descriptors are only supported for manager based RL environments. No IO descriptors will be exported."
         )
 
-    # set the log directory for the environment (works for all environment types)
     env_cfg.log_dir = log_dir
 
     # create isaac environment
     env = gym.make(args_cli.task, cfg=env_cfg, render_mode="rgb_array" if args_cli.video else None)
 
-    # convert to single-agent instance if required by the RL algorithm
     if isinstance(env.unwrapped, DirectMARLEnv):
         env = multi_agent_to_single_agent(env)
 
-    # save resume path before creating a new log_dir
     if agent_cfg.resume or agent_cfg.algorithm.class_name == "Distillation":
         resume_path = get_checkpoint_path(log_root_path, agent_cfg.load_run, agent_cfg.load_checkpoint)
 
-    # wrap for video recording
     if args_cli.video:
         video_kwargs = {
             "video_folder": os.path.join(log_dir, "videos", "train"),
@@ -192,39 +219,31 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     start_time = time.time()
 
-    # wrap around environment for rsl-rl
     env = RslRlVecEnvWrapper(env, clip_actions=agent_cfg.clip_actions)
 
-    # create runner from rsl-rl
     if agent_cfg.class_name == "OnPolicyRunner":
         runner = OnPolicyRunner(env, agent_cfg.to_dict(), log_dir=log_dir, device=agent_cfg.device)
     elif agent_cfg.class_name == "DistillationRunner":
         runner = DistillationRunner(env, agent_cfg.to_dict(), log_dir=log_dir, device=agent_cfg.device)
     else:
         raise ValueError(f"Unsupported runner class: {agent_cfg.class_name}")
-    # write git state to logs
+    
     runner.add_git_repo_to_log(__file__)
-    # load the checkpoint
+    
     if agent_cfg.resume or agent_cfg.algorithm.class_name == "Distillation":
         print(f"[INFO]: Loading model checkpoint from: {resume_path}")
-        # load previously trained model
         runner.load(resume_path)
 
-    # dump the configuration into log-directory
     dump_yaml(os.path.join(log_dir, "params", "env.yaml"), env_cfg)
     dump_yaml(os.path.join(log_dir, "params", "agent.yaml"), agent_cfg)
 
-    # run training
     runner.learn(num_learning_iterations=agent_cfg.max_iterations, init_at_random_ep_len=True)
 
     print(f"Training time: {round(time.time() - start_time, 2)} seconds")
 
-    # close the simulator
     env.close()
 
 
 if __name__ == "__main__":
-    # run the main function
     main()
-    # close sim app
     simulation_app.close()

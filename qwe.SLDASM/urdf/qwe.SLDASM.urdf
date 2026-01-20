@@ -26,7 +26,7 @@
   <joint name="thigh_front_left_joint" type="revolute">
     <origin xyz="0.0762 0.0903 -0.0234" rpy="0 0 -1.5708" />
     <parent link="base_link" /><child link="thigh_front_left" /><axis xyz="-1 0 0" />
-    <limit lower="-0.6" upper="0.6" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+    <limit lower="-1.4" upper="1.4" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
   </joint>
 
   <link name="shank_front_left">
@@ -37,7 +37,7 @@
   <joint name="shank_front_left_joint" type="revolute">
     <origin xyz="-0.023 0 -0.0615" rpy="0 0 0" />
     <parent link="thigh_front_left" /><child link="shank_front_left" /><axis xyz="-1 0 0" />
-    <limit lower="-1.396" upper="1.396" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+    <limit lower="-1.57" upper="1.57" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
   </joint>
 
   <link name="wheel_front_left">
@@ -60,7 +60,7 @@
   <joint name="thigh_front_right_joint" type="revolute">
     <origin xyz="0.0762 -0.0903 -0.0234" rpy="0 0 -1.5708" />
     <parent link="base_link" /><child link="thigh_front_right" /><axis xyz="-1 0 0" />
-    <limit lower="-0.6" upper="0.6" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+    <limit lower="-1.4" upper="1.4" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
   </joint>
 
   <link name="shank_front_right">
@@ -71,7 +71,7 @@
   <joint name="shank_front_right_joint" type="revolute">
     <origin xyz="0.023 0 -0.0615" rpy="0 0 0" />
     <parent link="thigh_front_right" /><child link="shank_front_right" /><axis xyz="-1 0 0" />
-    <limit lower="-1.396" upper="1.396" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+    <limit lower="-1.57" upper="1.57" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
   </joint>
 
   <link name="wheel_front_right">
@@ -94,7 +94,7 @@
   <joint name="thigh_rear_left_joint" type="revolute">
     <origin xyz="-0.0762 0.0903 -0.0234" rpy="0 0 -1.5708" />
     <parent link="base_link" /><child link="thigh_rear_left" /><axis xyz="-1 0 0" />
-    <limit lower="-0.6" upper="0.6" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+    <limit lower="-1.4" upper="1.4" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
   </joint>
 
   <link name="shank_rear_left">
@@ -105,7 +105,7 @@
   <joint name="shank_rear_left_joint" type="revolute">
     <origin xyz="-0.023 0 -0.0615" rpy="0 0 0" />
     <parent link="thigh_rear_left" /><child link="shank_rear_left" /><axis xyz="-1 0 0" />
-    <limit lower="-1.396" upper="1.396" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+    <limit lower="-1.57" upper="1.57" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
   </joint>
 
   <link name="wheel_rear_left">
@@ -128,7 +128,7 @@
   <joint name="thigh_rear_right_joint" type="revolute">
     <origin xyz="-0.0762 -0.0903 -0.0234" rpy="0 0 -1.5708" />
     <parent link="base_link" /><child link="thigh_rear_right" /><axis xyz="-1 0 0" />
-    <limit lower="-0.6" upper="0.6" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+    <limit lower="-1.4" upper="1.4" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
   </joint>
 
   <link name="shank_rear_right">
@@ -139,7 +139,7 @@
   <joint name="shank_rear_right_joint" type="revolute">
     <origin xyz="0.023 0 -0.0615" rpy="0 0 0" />
     <parent link="thigh_rear_right" /><child link="shank_rear_right" /><axis xyz="-1 0 0" />
-    <limit lower="-1.396" upper="1.396" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
+    <limit lower="-1.57" upper="1.57" effort="1.27" velocity="6.3" /><dynamics friction="1.0" damping="0.5" />
   </joint>
 
   <link name="wheel_rear_right">

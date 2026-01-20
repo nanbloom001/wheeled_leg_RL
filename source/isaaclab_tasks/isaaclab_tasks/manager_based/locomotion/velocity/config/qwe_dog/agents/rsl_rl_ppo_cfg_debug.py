@@ -9,11 +9,11 @@ from isaaclab_rl.rsl_rl import RslRlOnPolicyRunnerCfg, RslRlPpoActorCriticCfg, R
 
 
 @configclass
-class UnitreeA1RoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
-    num_steps_per_env = 24
+class UnitreeA1RoughPPORunnerCfg_DEBUG(RslRlOnPolicyRunnerCfg):
+    num_steps_per_env = 24 # DEFAULT
     max_iterations = 1500
     save_interval = 50
-    experiment_name = "qwe_dog_flat"
+    experiment_name = "qwe_dog_flat_debug"
     policy = RslRlPpoActorCriticCfg(
         init_noise_std=1.0,
         actor_obs_normalization=False,
@@ -28,7 +28,7 @@ class UnitreeA1RoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
         clip_param=0.2,
         entropy_coef=0.01,
         num_learning_epochs=5,
-        num_mini_batches=4,
+        num_mini_batches=4, # DEFAULT
         learning_rate=1.0e-3,
         schedule="adaptive",
         gamma=0.99,
@@ -36,14 +36,3 @@ class UnitreeA1RoughPPORunnerCfg(RslRlOnPolicyRunnerCfg):
         desired_kl=0.01,
         max_grad_norm=1.0,
     )
-
-
-@configclass
-class UnitreeA1FlatPPORunnerCfg(UnitreeA1RoughPPORunnerCfg):
-    def __post_init__(self):
-        super().__post_init__()
-
-        self.max_iterations = 500
-        self.experiment_name = "qwe_dog_flat"
-        self.policy.actor_hidden_dims = [128, 128, 128]
-        self.policy.critic_hidden_dims = [128, 128, 128]

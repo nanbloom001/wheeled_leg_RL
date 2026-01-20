@@ -86,6 +86,12 @@ class UniformVelocityCommand(CommandTerm):
         # -- metrics
         self.metrics["error_vel_xy"] = torch.zeros(self.num_envs, device=self.device)
         self.metrics["error_vel_yaw"] = torch.zeros(self.num_envs, device=self.device)
+        # [GEMINI] Added split metrics for X and Y velocity errors
+        self.metrics["error_vel_x"] = torch.zeros(self.num_envs, device=self.device)
+        self.metrics["error_vel_y"] = torch.zeros(self.num_envs, device=self.device)
+        # [GEMINI] Added wheel velocity monitoring
+        self.metrics["error_wheel_vel"] = torch.zeros(self.num_envs, device=self.device)
+        self._wheel_joint_ids, _ = self.robot.find_joints(".*wheel.*")
 
     def __str__(self) -> str:
         """Return a string representation of the command generator."""
@@ -122,6 +128,18 @@ class UniformVelocityCommand(CommandTerm):
         self.metrics["error_vel_yaw"] += (
             torch.abs(self.vel_command_b[:, 2] - self.robot.data.root_ang_vel_b[:, 2]) / max_command_step
         )
+        # [GEMINI] Update split metrics
+        self.metrics["error_vel_x"] += (
+            torch.abs(self.vel_command_b[:, 0] - self.robot.data.root_lin_vel_b[:, 0]) / max_command_step
+        )
+        self.metrics["error_vel_y"] += (
+            torch.abs(self.vel_command_b[:, 1] - self.robot.data.root_lin_vel_b[:, 1]) / max_command_step
+        )
+        # [GEMINI] Update wheel velocity metric
+        if len(self._wheel_joint_ids) > 0:
+            self.metrics["error_wheel_vel"] += (
+                torch.mean(torch.abs(self.robot.data.joint_vel[:, self._wheel_joint_ids]), dim=-1) / max_command_step
+            )
 
     def _resample_command(self, env_ids: Sequence[int]):
         # sample velocity commands
