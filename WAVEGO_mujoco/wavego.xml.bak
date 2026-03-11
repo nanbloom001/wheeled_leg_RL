@@ -1,0 +1,83 @@
+<mujoco model="WAVEGO">
+  <compiler angle="radian"/>
+
+  <asset>
+    <mesh name="base_link" content_type="model/stl" file="base_link.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="FL_hip_1" content_type="model/stl" file="FL_hip_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="FR_hip_1" content_type="model/stl" file="FR_hip_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="RL_hip_1" content_type="model/stl" file="RL_hip_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="RR_hip_1" content_type="model/stl" file="RR_hip_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="FL_thigh_1" content_type="model/stl" file="FL_thigh_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="FR_thigh_1" content_type="model/stl" file="FR_thigh_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="RL_thigh_1" content_type="model/stl" file="RL_thigh_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="RR_thigh_1" content_type="model/stl" file="RR_thigh_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="FL_calf_1" content_type="model/stl" file="FL_calf_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="FR_calf_1" content_type="model/stl" file="FR_calf_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="RL_calf_1" content_type="model/stl" file="RL_calf_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="RR_calf_1" content_type="model/stl" file="RR_calf_1.stl" scale="0.001 0.001 0.001"/>
+  </asset>
+
+  <worldbody>
+    <geom type="mesh" mesh="base_link"/>
+    <body name="FL_hip" pos="-0.0245 0.114266 0.025234">
+      <inertial pos="-0.0231913 0.018798 -4.18001e-07" quat="0 0.707107 0 0.707107" mass="0.07" diaginertia="3.3e-05 2.68e-05 1.5e-05"/>
+      <joint name="FL_hip_joint" pos="0 0 0" axis="0 -1 0" range="-0.523599 0.523599" actuatorfrcrange="-1.96 1.96" damping="0.5" frictionloss="0.4"/>
+      <geom pos="0.0245 -0.114266 -0.025234" quat="1 0 0 0" type="mesh" mesh="FL_hip_1"/>
+      <body name="FL_thigh" pos="-0.0465 0.0196 0">
+        <inertial pos="-0.0197085 0.00280153 -0.0523151" quat="0.707107 0 0 0.707107" mass="0.12" diaginertia="0.000167 0.000153 3.5e-05"/>
+        <joint name="FL_thigh_joint" pos="0 0 0" axis="1 0 0" range="-2.0944 2.0944" actuatorfrcrange="-1.96 1.96" damping="0.5" frictionloss="0.4"/>
+        <geom pos="0.071 -0.133866 -0.025234" quat="1 0 0 0" type="mesh" mesh="FL_thigh_1"/>
+        <body name="FL_calf" pos="-0.0352 0.012722 -0.101001">
+          <inertial pos="-0.0045 0.0372771 -0.0358033" quat="0.707107 0.707107 0 0" mass="0.02" diaginertia="2.7e-05 1.5e-05 1.2e-05"/>
+          <joint name="FL_calf_joint" pos="0 0 0" axis="1 0 0" range="-2.0944 2.0944" actuatorfrcrange="-1.96 1.96" damping="0.5" frictionloss="0.4"/>
+          <geom pos="0.1062 -0.146588 0.075767" quat="1 0 0 0" type="mesh" mesh="FL_calf_1"/>
+        </body>
+      </body>
+    </body>
+    <body name="FR_hip" pos="0.0245 0.114266 0.025234">
+      <inertial pos="0.0231913 0.018798 -3.56852e-07" quat="0 0.707107 0 0.707107" mass="0.07" diaginertia="3.3e-05 2.68e-05 1.5e-05"/>
+      <joint name="FR_hip_joint" pos="0 0 0" axis="0 -1 0" range="-0.523599 0.523599" actuatorfrcrange="-1.96 1.96" damping="0.5" frictionloss="0.4"/>
+      <geom pos="-0.0245 -0.114266 -0.025234" quat="1 0 0 0" type="mesh" mesh="FR_hip_1"/>
+      <body name="FR_thigh" pos="0.0465 0.0196 0">
+        <inertial pos="0.0197085 0.00279325 -0.0523181" quat="0.707107 0 0 0.707107" mass="0.12" diaginertia="0.000167 0.000153 3.5e-05"/>
+        <joint name="FR_thigh_joint" pos="0 0 0" axis="-1 0 0" range="-2.0944 2.0944" actuatorfrcrange="-1.96 1.96" damping="0.5" frictionloss="0.4"/>
+        <geom pos="-0.071 -0.133866 -0.025234" quat="1 0 0 0" type="mesh" mesh="FR_thigh_1"/>
+        <body name="FR_calf" pos="0.0392 0.015295 -0.101048">
+          <inertial pos="0.0045 0.0372739 -0.0358066" quat="0.707107 0.707107 0 0" mass="0.02" diaginertia="2.7e-05 1.5e-05 1.2e-05"/>
+          <joint name="FR_calf_joint" pos="0 0 0" axis="-1 0 0" range="-2.0944 2.0944" actuatorfrcrange="-1.96 1.96" damping="0.5" frictionloss="0.4"/>
+          <geom pos="-0.1102 -0.149161 0.075814" quat="1 0 0 0" type="mesh" mesh="FR_calf_1"/>
+        </body>
+      </body>
+    </body>
+    <body name="RL_hip" pos="-0.0245 -0.112734 0.025234">
+      <inertial pos="-0.0231913 -0.0187972 -3.56853e-07" quat="0 0.707107 0 0.707107" mass="0.07" diaginertia="3.3e-05 2.68e-05 1.5e-05"/>
+      <joint name="RL_hip_joint" pos="0 0 0" axis="0 1 0" range="-0.523599 0.523599" actuatorfrcrange="-1.96 1.96" damping="0.5" frictionloss="0.4"/>
+      <geom pos="0.0245 0.112734 -0.025234" quat="1 0 0 0" type="mesh" mesh="RL_hip_1"/>
+      <body name="RL_thigh" pos="-0.0465 -0.0196 0">
+        <inertial pos="-0.0197085 0.00280153 -0.0523151" quat="0.707107 0 0 0.707107" mass="0.12" diaginertia="0.000167 0.000153 3.5e-05"/>
+        <joint name="RL_thigh_joint" pos="0 0 0" axis="1 0 0" range="-2.0944 2.0944" actuatorfrcrange="-1.96 1.96" damping="0.5" frictionloss="0.4"/>
+        <geom pos="0.071 0.132334 -0.025234" quat="1 0 0 0" type="mesh" mesh="RL_thigh_1"/>
+        <body name="RL_calf" pos="-0.0392 0.015322 -0.101039">
+          <inertial pos="-0.003 0.0372769 -0.0358032" quat="0.707107 0.707107 0 0" mass="0.02" diaginertia="2.7e-05 1.5e-05 1.2e-05"/>
+          <joint name="RL_calf_joint" pos="0 0 0" axis="1 0 0" range="-2.0944 2.0944" actuatorfrcrange="-1.96 1.96" damping="0.5" frictionloss="0.4"/>
+          <geom pos="0.1102 0.117012 0.075805" quat="1 0 0 0" type="mesh" mesh="RL_calf_1"/>
+        </body>
+      </body>
+    </body>
+    <body name="RR_hip" pos="0.0245 -0.112734 0.025234">
+      <inertial pos="0.0231913 -0.0187972 -4.18001e-07" quat="0 0.707107 0 0.707107" mass="0.07" diaginertia="3.3e-05 2.68e-05 1.5e-05"/>
+      <joint name="RR_hip_joint" pos="0 0 0" axis="0 1 0" range="-0.523599 0.523599" actuatorfrcrange="-1.96 1.96" damping="0.5" frictionloss="0.4"/>
+      <geom pos="-0.0245 0.112734 -0.025234" quat="1 0 0 0" type="mesh" mesh="RR_hip_1"/>
+      <body name="RR_thigh" pos="0.0465 -0.0196 0">
+        <inertial pos="0.0197085 0.00279325 -0.0523181" quat="0.707107 0 0 0.707107" mass="0.12" diaginertia="0.000167 0.000153 3.5e-05"/>
+        <joint name="RR_thigh_joint" pos="0 0 0" axis="-1 0 0" range="-2.0944 2.0944" actuatorfrcrange="-1.96 1.96" damping="0.5" frictionloss="0.4"/>
+        <geom pos="-0.071 0.132334 -0.025234" quat="1 0 0 0" type="mesh" mesh="RR_thigh_1"/>
+        <body name="RR_calf" pos="0.0392 0.015295 -0.101048">
+          <inertial pos="0.0045 0.0372739 -0.0358066" quat="0.707107 0.707107 0 0" mass="0.02" diaginertia="2.7e-05 1.5e-05 1.2e-05"/>
+          <joint name="RR_calf_joint" pos="0 0 0" axis="-1 0 0" range="-2.0944 2.0944" actuatorfrcrange="-1.96 1.96" damping="0.5" frictionloss="0.4"/>
+          <geom pos="-0.1102 0.117039 0.075814" quat="1 0 0 0" type="mesh" mesh="RR_calf_1"/>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>

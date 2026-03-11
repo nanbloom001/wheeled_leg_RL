@@ -1,0 +1,36 @@
+FROM nvcr.io/nvidia/l4t-ml:r32.7.1-py3
+# JetPack 5.x 使用: FROM nvcr.io/nvidia/l4t-ml:r35.2.1-py3
+
+# ===== 系统依赖 =====
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# ===== Python 依赖 =====
+RUN pip3 install --upgrade pip && \
+    pip3 install \
+    pyserial==3.5 \
+    pyyaml==6.0.1 \
+    numpy==1.24.4
+
+# l4t-ml 镜像已包含 onnxruntime-gpu，无需额外安装
+
+# ===== 工作目录 =====
+WORKDIR /app
+
+# ===== 复制文件 =====
+COPY sim2real_test/ /app/sim2real_test/
+
+# ===== 入口 =====
+# 使用 bash 以便手动调试
+CMD ["/bin/bash"]
+
+# ===== 运行方式 =====
+# docker build -t wavego_deploy -f sim2real_test/docker/Dockerfile.jetson .
+#
+# docker run --runtime nvidia \
+#   --device /dev/ttyACM0 \
+#   -it wavego_deploy \
+#   python3 sim2real_test/scripts/wavego_inference.py \
+#     --config sim2real_test/config/wavego_deploy_config.yaml \
+#     --cmd-x 0 --cmd-y 0 --cmd-wz 0 --duration 10

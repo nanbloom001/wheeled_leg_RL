@@ -1,0 +1,9 @@
+<launch>
+
+<rosparam file="$(find WAVEGO_description)/launch/controller.yaml" command="load"/>
+<node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="WAVEGO" args="旋转 5_position_controller 旋转 11_position_controller 旋转 13_position_controller 旋转 14_position_controller 旋转 15_position_controller 旋转 17_position_controller 旋转 18_position_controller 旋转 19_position_controller 旋转 20_position_controller 旋转 21_position_controller 旋转 22_position_controller 旋转 23_position_controller joint_state_controller "/>
+<node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+  <remap from="/joint_states" to="/WAVEGO/joint_states"/>
+</node>
+
+</launch>

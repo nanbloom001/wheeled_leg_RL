@@ -1,0 +1,107 @@
+<mujoco model="wavego">
+  <compiler angle="radian" meshdir="." autolimits="true"/>
+
+  <option cone="elliptic" noslip_iterations="60" timestep="0.005"/>
+
+  <default>
+    <joint damping="0.05" armature="0.01" frictionloss="0.4"/>
+    <geom contype="1" conaffinity="1" condim="4" friction="1.0 0.05 0.01" solref="0.02 1" solimp="0.9 0.95 0.001"/>
+    <position kp="400" kv="10" forcerange="-1.96 1.96"/>
+  </default>
+
+  <asset>
+    <mesh name="base_link" file="base_link.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="FL_hip" file="FL_hip_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="FR_hip" file="FR_hip_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="RL_hip" file="RL_hip_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="RR_hip" file="RR_hip_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="FL_thigh" file="FL_thigh_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="FR_thigh" file="FR_thigh_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="RL_thigh" file="RL_thigh_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="RR_thigh" file="RR_thigh_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="FL_calf" file="FL_calf_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="FR_calf" file="FR_calf_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="RL_calf" file="RL_calf_1.stl" scale="0.001 0.001 0.001"/>
+    <mesh name="RR_calf" file="RR_calf_1.stl" scale="0.001 0.001 0.001"/>
+  </asset>
+
+  <worldbody>
+    <body name="base" pos="0 0 0.25">
+      <freejoint name="root"/>
+      <inertial pos="0 0 0" mass="0.75" diaginertia="0.001 0.001 0.001"/>
+      <geom type="mesh" mesh="base_link"/>
+
+      <!-- FL Leg -->
+      <body name="FL_hip" pos="-0.0245 0.114266 0.025234">
+        <joint name="FL_hip_joint" axis="0 -1 0" range="-0.523599 0.523599"/>
+        <geom type="mesh" mesh="FL_hip" pos="0.0245 -0.114266 -0.025234"/>
+        <body name="FL_thigh" pos="-0.0465 0.0196 0">
+          <joint name="FL_thigh_joint" axis="1 0 0" range="-2.094395 2.094395"/>
+          <geom type="mesh" mesh="FL_thigh" pos="0.071 -0.133866 -0.025234"/>
+          <body name="FL_calf" pos="-0.0352 0.012722 -0.101001">
+            <joint name="FL_calf_joint" axis="1 0 0" range="-2.094395 2.094395"/>
+            <geom type="mesh" mesh="FL_calf" pos="0.1062 -0.146588 0.075767"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- FR Leg -->
+      <body name="FR_hip" pos="0.0245 0.114266 0.025234">
+        <joint name="FR_hip_joint" axis="0 -1 0" range="-0.523599 0.523599"/>
+        <geom type="mesh" mesh="FR_hip" pos="-0.0245 -0.114266 -0.025234"/>
+        <body name="FR_thigh" pos="0.0465 0.0196 0">
+          <joint name="FR_thigh_joint" axis="-1 0 0" range="-2.094395 2.094395"/>
+          <geom type="mesh" mesh="FR_thigh" pos="-0.071 -0.133866 -0.025234"/>
+          <body name="FR_calf" pos="0.0392 0.015295 -0.101048">
+            <joint name="FR_calf_joint" axis="-1 0 0" range="-2.094395 2.094395"/>
+            <geom type="mesh" mesh="FR_calf" pos="-0.1102 -0.149161 0.075814"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- RL Leg -->
+      <body name="RL_hip" pos="-0.0245 -0.112734 0.025234">
+        <joint name="RL_hip_joint" axis="0 1 0" range="-0.523599 0.523599"/>
+        <geom type="mesh" mesh="RL_hip" pos="0.0245 0.112734 -0.025234"/>
+        <body name="RL_thigh" pos="-0.0465 -0.0196 0">
+          <joint name="RL_thigh_joint" axis="1 0 0" range="-2.094395 2.094395"/>
+          <geom type="mesh" mesh="RL_thigh" pos="0.071 0.132334 -0.025234"/>
+          <body name="RL_calf" pos="-0.0392 0.015322 -0.101039">
+            <joint name="RL_calf_joint" axis="1 0 0" range="-2.094395 2.094395"/>
+            <geom type="mesh" mesh="RL_calf" pos="0.1102 0.117012 0.075805"/>
+          </body>
+        </body>
+      </body>
+
+      <!-- RR Leg -->
+      <body name="RR_hip" pos="0.0245 -0.112734 0.025234">
+        <joint name="RR_hip_joint" axis="0 1 0" range="-0.523599 0.523599"/>
+        <geom type="mesh" mesh="RR_hip" pos="-0.0245 0.112734 -0.025234"/>
+        <body name="RR_thigh" pos="0.0465 -0.0196 0">
+          <joint name="RR_thigh_joint" axis="-1 0 0" range="-2.094395 2.094395"/>
+          <geom type="mesh" mesh="RR_thigh" pos="-0.071 0.132334 -0.025234"/>
+          <body name="RR_calf" pos="0.0392 0.015295 -0.101048">
+            <joint name="RR_calf_joint" axis="-1 0 0" range="-2.094395 2.094395"/>
+            <geom type="mesh" mesh="RR_calf" pos="-0.1102 0.117039 0.075814"/>
+          </body>
+        </body>
+      </body>
+
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position name="FL_hip" joint="FL_hip_joint"/>
+    <position name="FL_thigh" joint="FL_thigh_joint"/>
+    <position name="FL_calf" joint="FL_calf_joint"/>
+    <position name="FR_hip" joint="FR_hip_joint"/>
+    <position name="FR_thigh" joint="FR_thigh_joint"/>
+    <position name="FR_calf" joint="FR_calf_joint"/>
+    <position name="RL_hip" joint="RL_hip_joint"/>
+    <position name="RL_thigh" joint="RL_thigh_joint"/>
+    <position name="RL_calf" joint="RL_calf_joint"/>
+    <position name="RR_hip" joint="RR_hip_joint"/>
+    <position name="RR_thigh" joint="RR_thigh_joint"/>
+    <position name="RR_calf" joint="RR_calf_joint"/>
+  </actuator>
+</mujoco>

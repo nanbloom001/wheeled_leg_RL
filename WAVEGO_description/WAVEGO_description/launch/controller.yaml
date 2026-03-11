@@ -1,0 +1,55 @@
+WAVEGO_controller:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50
+
+  # Position Controllers --------------------------------------
+  旋转 5_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 旋转 5
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  旋转 11_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 旋转 11
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  旋转 13_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 旋转 13
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  旋转 14_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 旋转 14
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  旋转 15_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 旋转 15
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  旋转 17_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 旋转 17
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  旋转 18_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 旋转 18
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  旋转 19_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 旋转 19
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  旋转 20_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 旋转 20
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  旋转 21_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 旋转 21
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  旋转 22_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 旋转 22
+    pid: {p: 100.0, i: 0.01, d: 10.0}
+  旋转 23_position_controller:
+    type: effort_controllers/JointPositionController
+    joint: 旋转 23
+    pid: {p: 100.0, i: 0.01, d: 10.0}

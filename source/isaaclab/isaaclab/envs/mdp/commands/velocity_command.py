@@ -91,7 +91,11 @@ class UniformVelocityCommand(CommandTerm):
         self.metrics["error_vel_y"] = torch.zeros(self.num_envs, device=self.device)
         # [GEMINI] Added wheel velocity monitoring
         self.metrics["error_wheel_vel"] = torch.zeros(self.num_envs, device=self.device)
-        self._wheel_joint_ids, _ = self.robot.find_joints(".*wheel.*")
+        self._wheel_joint_ids = []
+        try:
+            self._wheel_joint_ids, _ = self.robot.find_joints(".*wheel.*")
+        except Exception:
+            pass
 
     def __str__(self) -> str:
         """Return a string representation of the command generator."""

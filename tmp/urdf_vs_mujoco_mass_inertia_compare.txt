@@ -1,0 +1,5 @@
+urdf_links_with_inertial=13
+matched_links=13
+unmatched_links=0
+max_abs_delta_mass=0.0747577270587
+max_abs_delta_inertia_diag=0.004545

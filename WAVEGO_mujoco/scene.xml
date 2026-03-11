@@ -1,0 +1,30 @@
+<mujoco model="wavego_scene">
+  <include file="wavego.xml"/>
+
+  <statistic center="0 0 0.2" extent="0.5"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="120" elevation="-20"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="512"/>
+    <texture name="plane" type="2d" builtin="checker" rgb1="0.2 0.3 0.4" rgb2="0.1 0.15 0.2" width="512" height="512" mark="cross" markrgb="0.8 0.8 0.8"/>
+    <material name="plane" texture="plane" texrepeat="2 2" texuniform="true" reflectance="0.2"/>
+  </asset>
+
+  <worldbody>
+    <light pos="0 0 1.5" dir="0 0 -1" diffuse="0.5 0.5 0.5" castshadow="true"/>
+    <geom name="floor" pos="0 0 0" size="0 0 0.05" type="plane" material="plane"/>
+  </worldbody>
+
+  <keyframe>
+    <!-- ✅ 修正：站立姿态使用正确的深度优先关节顺序 -->
+    <!-- qpos: [x, y, z, qw, qx, qy, qz, FL_hip, FL_thigh, FL_calf, FR_hip, FR_thigh, FR_calf, RL_hip, RL_thigh, RL_calf, RR_hip, RR_thigh, RR_calf] -->
+    <key name="home" 
+         qpos="0 0 0.25 1 0 0 0  0.1 -0.65 0.6  -0.1 0.65 -0.6  -0.1 -0.65 0.6  0.1 0.65 -0.6"
+         ctrl="0.1 -0.65 0.6  -0.1 0.65 -0.6  -0.1 -0.65 0.6  0.1 0.65 -0.6"/>
+  </keyframe>
+</mujoco>

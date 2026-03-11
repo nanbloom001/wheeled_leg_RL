@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../weixue-dog-nano-code"
+		},
+		{
+			"path": "../../weixue-wheeled-dog"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"*.tpp": "cpp",
+			"*.kit": "toml",
+			"*.rst": "restructuredtext"
+		},
+		"python.languageServer": "Pylance",
+		"chat.tools.terminal.autoApprove": {
+			"/^cd /home/user/IsaacLab && python - <<'PY'\nimport mujoco\nm = mujoco\\.MjModel\\.from_xml_path\\('WAVEGO_mujoco/scene\\.xml'\\)\nprint\\('loaded=ok'\\)\nprint\\('nq', m\\.nq, 'nv', m\\.nv, 'nu', m\\.nu, 'njnt', m\\.njnt, 'nbody', m\\.nbody\\)\nprint\\('timestep', m\\.opt\\.timestep\\)\nprint\\('gravity', m\\.opt\\.gravity\\)\nprint\\('key_qpos', m\\.key_qpos\\.shape, 'key_ctrl', m\\.key_ctrl\\.shape\\)\nfor i in range\\(1, m\\.njnt\\):\n    name = mujoco\\.mj_id2name\\(m, mujoco\\.mjtObj\\.mjOBJ_JOINT, i\\)\n    print\\('joint', i, name, 'range', m\\.jnt_range\\[i\\]\\.tolist\\(\\)\\)\nfor i in range\\(m\\.nu\\):\n    name = mujoco\\.mj_id2name\\(m, mujoco\\.mjtObj\\.mjOBJ_ACTUATOR, i\\)\n    jid = m\\.actuator_trnid\\[i,0\\]\n    jname = mujoco\\.mj_id2name\\(m, mujoco\\.mjtObj\\.mjOBJ_JOINT, jid\\)\n    print\\('act', i, name, '->', jname, 'forcerange', m\\.actuator_forcerange\\[i\\]\\.tolist\\(\\)\\)\nPY$/": {
+				"approve": true,
+				"matchCommandLine": true
+			}
+		}
+	}
+}
